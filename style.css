@@ -73,14 +73,6 @@ header {
     border-radius: 5px;
 }
 
-.navbar a:nth-child(4) img {
-    display: none;
-}
-
-.navbar a:nth-child(4) {
-    display: none;
-}
-
 .navbar a:last-child {
     background: linear-gradient(135deg, #287cff, #3335e8);
     padding: 14px 25px;

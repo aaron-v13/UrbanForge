@@ -252,12 +252,15 @@ h6 {
 }
 
 .remember label {
+    width: 100%;
     display: flex;
     align-items: center;
 
     cursor: pointer;
-
     user-select: none;
+
+    color: #d9e1ef;
+    font-size: 15px;
 }
 
 #rememberme {
@@ -279,6 +282,21 @@ h6 {
     position: relative;
 }
 
+.remember label a {
+    margin-left: auto;
+
+    color: #008cff;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.remember label a:hover {
+    text-decoration: underline;
+    color: #1da1ff;
+}
+
 #rememberme:checked {
     background: #1264c9;
     border-color: #1264c9;
@@ -298,37 +316,144 @@ h6 {
     font-weight: bold;
 }
 
-@media (max-width: 700px) {
+.wrap {
+    width: 536px;
+    margin-top: 24px;
+}
 
-    body {
-        padding: 30px 20px;
-    }
+.Signin {
+    width: 100%;
+}
 
-    body::before {
-        width: calc(100% - 30px);
-        height: 700px;
+.Signin button {
+    width: 100%;
+    height: 66px;
 
-        top: 30px;
-    }
+    border: none;
+    outline: none;
 
-    h1,
-    h6,
-    .input-box,
-    .input-box2,
-    .remember {
-        width: min(536px, calc(100vw - 70px));
-    }
+    background: #1c3f88;
+    color: #ffffff;
 
-    h1 {
-        margin-top: 80px;
-        font-size: 30px;
-    }
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
 
-    h6 {
-        font-size: 16px;
-    }
+    cursor: pointer;
 
-    .input-box {
-        margin-top: 30px;
-    }
+    transition: all 0.25s ease;
+}
+
+.Signin button:hover {
+    background: #2451a5;
+    box-shadow: 0 4px 15px rgba(20, 100, 220, 0.25);
+}
+
+.Signin button:active {
+    transform: scale(0.99);
+}
+
+.or-divider {
+    width: 536px;
+
+    margin-top: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 24px;
+}
+
+.or-divider span {
+    height: 1px;
+    flex: 1;
+
+    background: #263753;
+}
+
+.or-divider p {
+    margin: 0;
+
+    color: #8194b8;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+.social-buttons {
+    width: 536px;
+
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.social-btn {
+    width: 100%;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    border: 1px solid #263b5d;
+    border-radius: 8px;
+
+    background: #07162e;
+    color: #e8edf7;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.social-btn i {
+    font-size: 19px;
+}
+
+/* Google */
+.google-btn i {
+    color: #ffffff;
+}
+
+/* GitHub */
+.github-btn i {
+    color: #ffffff;
+}
+
+/* Hover */
+.social-btn:hover {
+    background: #0c203e;
+    border-color: #1768c9;
+
+    box-shadow: 0 0 10px rgba(20, 105, 220, 0.15);
+}
+
+.social-btn:active {
+    transform: scale(0.99);
+}
+.createacc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.createacc a{
+    color: #008cff;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: #1da1ff;
+}
+.createacc a:hover{
+    text-decoration: underline;
+    color: #1da1ff;
 }

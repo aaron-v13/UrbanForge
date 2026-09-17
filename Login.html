@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
-    <a href="index.html"><img src="Favicon.png" alt="Logo"></a>
-    <h1>Welcome Back!</h1>
+    <a href="index.html"><img src="image/backrem-Photoroom.png" alt=""></a>
+    <h1>Welcome <span>Back!</span></h1>
     <h6>Sign in to continue to your account</h6>
     <div class="input-box">
         <i class="fa-regular fa-envelope"></i>
@@ -23,12 +23,45 @@
         <i class="fa-regular fa-eye" id="togglePassword"></i>
     </div>
     <div class="remember">
-            
+
         <label>
             <input type="checkbox" id="rememberme">
             Remember me
+            <a href="">Forgot Password?</a>
         </label>
     </div>
+
+    <div class="wrap">
+        <div class="Signin">
+            <button>
+                Sign in
+            </button>
+        </div>
+        <div class="or-divider">
+            <span></span>
+            <p>OR</p>
+            <span></span>
+        </div>
+        <div class="social-buttons">
+
+            <button class="social-btn google-btn">
+                <i class="fa-brands fa-google"></i>
+                <span>Continue with Google</span>
+            </button>
+
+            <button class="social-btn github-btn">
+                <i class="fa-brands fa-github"></i>
+                <span>Continue with GitHub</span>
+            </button>
+
+        </div>
+        <div class = "createacc">
+            <span>Don't have an account?</apan>
+            <a href="">Create Account</a>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
 </body>
 
 </html>
