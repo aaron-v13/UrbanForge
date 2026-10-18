@@ -5,53 +5,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UrbanForge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/image/Favicon.png" type="image/png">
 </head>
 
 <body>
+    <!-- Loading screen -->
+    <div class="loader" id="loader" aria-hidden="true">
+        <img src="assets/image/backrem-Photoroom.png" alt="">
+        <div class="loader-bar"><span></span></div>
+        <p>Loading your city...</p>
+    </div>
+
     <header>
-        <nav class="navbar">
-            <a href="index.html"><img src="assets/image/backrem-Photoroom.png" alt=""></a>
-            <a href="index.html">Home</a>
+        <nav class="navbar anim-down">
+            <a class="logo" href="index.html"><img src="assets/image/backrem-Photoroom.png" alt="UrbanForge"></a>
+            <a class="active" href="index.html">Home</a>
             <a href="project.html">Projects</a>
             <a href="dashboard.html">Dashboard</a>
-            <a href="help.html">Contact Us</a>
             <a href="aboutus.html">About Us</a>
-            <a href="Login.html">Get Started</a>
+            <a href="pages/help.html">Help</a>
+            <a class="cta" href="Login.html">Get Started</a>
         </nav>
     </header>
+
     <main>
-        <div>
-            <div class="main">
-                <h5>DESIGN BUILD VISUALIZE</h5>
-                <div class="Heading">
-                    <h1>3D City Modelling</h1>
-                </div>
-                <div class="line">
-                    <p>----</p>
-                </div>
-                <div class="description">
-                    <h5>Create realistic 3D city models, visualize urban landscapes and bring your ideas to life with
-                        powerful 3D modelling tools</h5>
-                </div>
+        <section class="hero">
+            <p class="eyebrow anim" style="--d:.1s">DESIGN. BUILD. VISUALIZE</p>
+            <h1 class="anim" style="--d:.25s"><span class="white">3D City</span><span class="blue">Modelling</span></h1>
+            <p class="description anim" style="--d:.4s">
+                Create realistic 3D city models, visualize urban landscapes and bring your ideas to life with
+                powerful modelling tools
+            </p>
+            <div class="actions anim" style="--d:.55s">
+                <a class="btn primary" href="#capabilities">Explore City</a>
+            </div>
+        </section>
+
+        <section class="features anim" style="--d:.7s">
+            <div class="feature">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 21V9l5-3v15M9 21V4l6 3v14M15 21V11l5 2v8M2 21h20"/></svg>
+                </span>
+                <div><h5>Realistic</h5><h6>3D Visualization</h6></div>
+            </div>
+            <div class="feature">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
+                </span>
+                <div><h5>Accurate</h5><h6>City Modelling</h6></div>
+            </div>
+            <div class="feature">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></svg>
+                </span>
+                <div><h5>Detailed</h5><h6>Urban Landscape</h6></div>
+            </div>
+            <div class="feature">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L5 14h6l-1 8 8-12h-6l1-8z"/></svg>
+                </span>
+                <div><h5>Interactive</h5><h6>&amp; Easy to Use</h6></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Stats ===== -->
+    <section class="stats">
+        <div class="stat reveal" data-anim="zoom"><strong data-count="500" data-suffix="+">500+</strong><span>City Models</span></div>
+        <div class="stat reveal" data-anim="zoom"><strong data-count="120" data-suffix="+">120+</strong><span>Cities Mapped</span></div>
+        <div class="stat reveal" data-anim="zoom"><strong data-count="10" data-suffix="K+">10K+</strong><span>Active Users</span></div>
+        <div class="stat reveal" data-anim="zoom"><strong data-count="99" data-suffix="%">99%</strong><span>Model Accuracy</span></div>
+    </section>
+
+    <!-- ===== Capabilities ===== -->
+    <section class="section" id="capabilities">
+        <div class="section-head">
+            <p class="eyebrow-blue reveal" data-anim="fade-up">WHAT YOU CAN DO</p>
+            <h2 class="reveal" data-anim="fade-up">Everything you need to <span>build a city</span></h2>
+            <p class="sub reveal" data-anim="fade-up">From a single building to an entire skyline, UrbanForge gives you the tools to plan, model and present urban spaces.</p>
+        </div>
+
+        <div class="card-grid">
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span>
+                <h3>3D Building Models</h3>
+                <p>Create and edit detailed buildings with accurate height, shape and texture.</p>
+            </article>
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zM9 3v15M15 6v15"/></svg></span>
+                <h3>Terrain &amp; Maps</h3>
+                <p>Build on real-world terrain and map data for realistic city layouts.</p>
+            </article>
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></span>
+                <h3>Lighting &amp; Time of Day</h3>
+                <p>See your city at sunrise, noon or night with realistic lighting and shadows.</p>
+            </article>
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+                <h3>Urban Analytics</h3>
+                <p>Track population density, land use and building data in one dashboard.</p>
+            </article>
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M16 6a3 3 0 010 6M18 15c2 .6 3 2.2 3 5"/></svg></span>
+                <h3>Team Collaboration</h3>
+                <p>Share projects, collect feedback and work together on the same city.</p>
+            </article>
+            <article class="card reveal" data-anim="zoom">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg></span>
+                <h3>Export Anywhere</h3>
+                <p>Download your models as images or 3D files for reports and presentations.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===== How it works ===== -->
+    <section class="section alt">
+        <div class="section-head">
+            <p class="eyebrow-blue reveal" data-anim="fade-up">HOW IT WORKS</p>
+            <h2 class="reveal" data-anim="fade-up">From idea to skyline in <span>3 steps</span></h2>
+        </div>
+
+        <div class="steps">
+            <div class="step reveal" data-anim="left">
+                <span class="num">01</span>
+                <h3>Design</h3>
+                <p>Start a new project and lay out roads, plots and zones.</p>
+            </div>
+            <div class="step reveal" data-anim="zoom">
+                <span class="num">02</span>
+                <h3>Build</h3>
+                <p>Add buildings, parks and landmarks with powerful modelling tools.</p>
+            </div>
+            <div class="step reveal" data-anim="right">
+                <span class="num">03</span>
+                <h3>Visualize</h3>
+                <p>Explore your city in 3D, change the lighting and share the result.</p>
             </div>
         </div>
-    </main>
-    <button> Explore City</button>
-    <button>Learn More</button>
-    <div class="bottom">
-        <div class="first">
-            <h5>Realistic</h5>
-            <h6>3D Visualization</h6>
-            <h5>Accurate</h5>
-            <h6>City Modelling</h6>
-            <h5>Detailed</h5>
-            <h6>Urban Landscape</h6>
-            <h5>Interactive</h5>
-            <h6>& Easy to Use</h6>
+    </section>
+
+    <!-- ===== Featured projects ===== -->
+    <section class="section">
+        <div class="section-head">
+            <p class="eyebrow-blue reveal" data-anim="fade-up">FEATURED PROJECTS</p>
+            <h2 class="reveal" data-anim="fade-up">Cities built with <span>UrbanForge</span></h2>
+            <p class="sub reveal" data-anim="fade-up">A few examples of what you can create. Replace these cards with screenshots of your own projects.</p>
         </div>
-    </div>
+
+        <div class="project-grid">
+            <article class="project reveal" data-anim="left">
+                <div class="thumb t1"></div>
+                <div class="info"><h3>Skyline District</h3><p>High-rise business area &middot; 240 buildings</p></div>
+            </article>
+            <article class="project reveal" data-anim="zoom">
+                <div class="thumb t2"></div>
+                <div class="info"><h3>Riverfront Park</h3><p>Waterfront and green spaces &middot; 80 buildings</p></div>
+            </article>
+            <article class="project reveal" data-anim="right">
+                <div class="thumb t3"></div>
+                <div class="info"><h3>Smart Suburb</h3><p>Residential planning &middot; 520 buildings</p></div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===== Call to action ===== -->
+    <section class="cta-banner">
+        <h2 class="reveal" data-anim="fade-up">Ready to build your <span>city?</span></h2>
+        <p class="reveal" data-anim="fade-up">Create your free account and start your first 3D city model today.</p>
+        <a class="btn primary reveal" data-anim="zoom" href="Login.html">Get Started</a>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand reveal" data-anim="left">
+                <img src="assets/image/backrem-Photoroom.png" alt="UrbanForge">
+                <p>Design, build and visualize 3D cities with powerful modelling tools.</p>
+            </div>
+            <div class="footer-col reveal" data-anim="fade-up">
+                <h4>Product</h4>
+                <a href="project.html">Projects</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="Login.html">Get Started</a>
+            </div>
+            <div class="footer-col reveal" data-anim="fade-up">
+                <h4>Company</h4>
+                <a href="aboutus.html">About Us</a>
+                <a href="help.html">Help</a>
+            </div>
+        </div>
+        <p class="copy reveal" data-anim="fade-up">&copy; 2026 UrbanForge. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 
