@@ -4,63 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign In | UrbanForge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="shortcut icon" href="../assets/image/Favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
-    <a href="../index.html"><img src="../assets/image/backrem-Photoroom.png" alt=""></a>
-    <h1>Welcome <span>Back!</span></h1>
-    <h6>Sign in to continue to your account</h6>
-    <div class="input-box">
-        <i class="fa-regular fa-envelope"></i>
-        <input type="email" placeholder="Email address" required>
-    </div>
-    <div class="input-box2">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" placeholder="password" required>
-        <i class="fa-regular fa-eye" id="togglePassword"></i>
-    </div>
-    <div class="remember">
+    <main class="login-card">
+        <a class="logo" href="../index.html">
+            <img src="../assets/image/backrem-Photoroom.png" alt="UrbanForge">
+        </a>
 
-        <label>
-            <input type="checkbox" id="rememberme">
-            Remember me
-            <a href="">Forgot Password?</a>
-        </label>
-    </div>
+        <h1>Welcome <span>Back!</span></h1>
+        <p class="subtitle">Sign in to continue to your account</p>
 
-    <div class="wrap">
-        <div class="Signin">
-            <button>
-                Sign in
-            </button>
-        </div>
+        <form id="loginForm" novalidate>
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" name="email" id="email" placeholder="Email address" autocomplete="email" required>
+                </div>
+                <small class="error" id="emailError"></small>
+            </div>
+
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required>
+                    <i class="fa-regular fa-eye toggle" id="togglePassword" role="button" aria-label="Show password"></i>
+                </div>
+                <small class="error" id="passwordError"></small>
+            </div>
+
+            <div class="remember-row">
+                <label class="remember">
+                    <input type="checkbox" id="rememberme">
+                    <span>Remember me</span>
+                </label>
+                <a class="link" href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="signin" id="signinBtn">Sign In</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
         <div class="or-divider">
             <span></span>
             <p>OR</p>
             <span></span>
         </div>
-        <div class="social-buttons">
 
-            <button class="social-btn google-btn">
+        <div class="social-buttons">
+            <button type="button" class="social-btn" data-provider="Google">
                 <i class="fa-brands fa-google"></i>
                 <span>Continue with Google</span>
             </button>
-
-            <button class="social-btn github-btn">
+            <button type="button" class="social-btn" data-provider="GitHub">
                 <i class="fa-brands fa-github"></i>
                 <span>Continue with GitHub</span>
             </button>
+        </div>
 
-        </div>
-        <div class = "createacc">
-            <span>Don't have an account?</apan>
-            <a href="">Create Account</a>
-        </div>
-    </div>
+        <p class="createacc">
+            <span>Don't have an account?</span>
+            <a class="link" href="#">Create Account</a>
+        </p>
+    </main>
 
     <script src="../js/login.js"></script>
 </body>

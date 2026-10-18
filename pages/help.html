@@ -7,30 +7,35 @@
 
     <title>UrbanForge | Contact Us</title>
 
-    <link rel="stylesheet" href="../css/help.css">
-    <link rel="icon" href="../assets/image/Favicon.png
-    " type="image/png">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/help.css">
+    <link rel="icon" href="../assets/image/Favicon.png" type="image/png">
 </head>
 
 <body>
 
-    <header class="navbar">
+    <header class="navbar" id="navbar">
 
-        <div class="logo">
-            <a href="../index.html"><img src="../assets/image/" alt="UrbanForge Logo"></a>
-        </div>
+        <a class="logo" href="../index.html" aria-label="UrbanForge home">
+            <img src="../assets/image/backrem-Photoroom.png" alt="UrbanForge">
+        </a>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="projects.html">Projects</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav id="navLinks">
+            <a href="../index.html">Home</a>
+            <a href="project.html">Projects</a>
             <a href="dashboard.html">Dashboard</a>
             <a href="aboutus.html">About Us</a>
             <a href="help.html" class="active">Contact</a>
+            <a href="Login.html" class="nav-cta">Get Started</a>
         </nav>
 
-        <a href="#" class="get-started">
+        <a href="Login.html" class="get-started">
             Get Started
             <i class="fa-solid fa-arrow-right"></i>
         </a>
@@ -42,14 +47,14 @@
 
             <div class="hero-content">
 
-                <span class="small-title">CONTACT US</span>
+                <span class="small-title reveal" data-anim="fade-up">CONTACT US</span>
 
-                <h1>
+                <h1 class="reveal" data-anim="fade-up">
                     Let's Build a Smarter
                     <span>Tomorrow Together</span>
                 </h1>
 
-                <p>
+                <p class="intro reveal" data-anim="fade-up">
                     Have a project in mind, a question, or just want to say hello?
                     We'd love to hear from you. Our team is always here to help
                     and get back to you as soon as possible.
@@ -57,49 +62,33 @@
 
                 <div class="contact-details">
 
-                    <div class="detail">
-                        <div class="icon">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-
+                    <a class="detail reveal" data-anim="left" target="_blank" rel="noopener"
+                        href="https://www.google.com/maps/search/?api=1&query=BML+Munjal+University+Rohtak">
+                        <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
                             <h3>Our Location</h3>
-                            <p>
-                                BML Munjal University<br>
-                            </p>
+                            <p>BML Munjal University</p>
                         </div>
-                    </div>
+                    </a>
 
-
-                    <div class="detail">
-                        <div class="icon">
-                            <i class="fa-regular fa-envelope"></i>
-                        </div>
-
+                    <a class="detail reveal" data-anim="left" href="mailto:contacturbanforge410@gmail.com">
+                        <div class="icon"><i class="fa-regular fa-envelope"></i></div>
                         <div>
                             <h3>Email Us</h3>
                             <p>contacturbanforge410@gmail.com</p>
                         </div>
-                    </div>
+                    </a>
 
-
-                    <div class="detail">
-                        <div class="icon">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
+                    <a class="detail reveal" data-anim="left" href="tel:+919729346649">
+                        <div class="icon"><i class="fa-solid fa-phone"></i></div>
                         <div>
                             <h3>Call Us</h3>
                             <p>+91 97293 46649</p>
                         </div>
-                    </div>
+                    </a>
 
-
-                    <div class="detail">
-                        <div class="icon">
-                            <i class="fa-regular fa-clock"></i>
-                        </div>
-
+                    <div class="detail reveal" data-anim="left">
+                        <div class="icon"><i class="fa-regular fa-clock"></i></div>
                         <div>
                             <h3>Business Hours</h3>
                             <p>
@@ -111,29 +100,16 @@
 
                 </div>
 
-                <div class="socials">
-
-                    <a href="#">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-
+                <div class="socials reveal" data-anim="fade-up">
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
 
             </div>
 
-            <div class="form-card">
+            <div class="form-card reveal" data-anim="zoom" id="formCard">
 
                 <span class="small-title">SEND US A MESSAGE</span>
 
@@ -144,95 +120,95 @@
                     as soon as possible.
                 </p>
 
-
-                <form>
+                <form id="contactForm" novalidate>
 
                     <div class="form-row">
 
-                        <div class="input-box">
-
-                            <i class="fa-regular fa-user"></i>
-
-                            <input type="text" placeholder="Your Name" required>
-
+                        <div class="field">
+                            <div class="input-box">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="name" name="name" placeholder="Your Name" autocomplete="name" required>
+                            </div>
+                            <small class="error"></small>
                         </div>
 
-
-                        <div class="input-box">
-
-                            <i class="fa-regular fa-envelope"></i>
-
-                            <input type="email" placeholder="Your Email" required>
-
+                        <div class="field">
+                            <div class="input-box">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="Your Email" autocomplete="email" required>
+                            </div>
+                            <small class="error"></small>
                         </div>
 
                     </div>
 
-
-                    <div class="input-box">
-
-                        <i class="fa-solid fa-list"></i>
-
-                        <select required>
-
-                            <option value="" disabled selected>
-                                Subject
-                            </option>
-
-                            <option>General Inquiry</option>
-                            <option>Project Discussion</option>
-                            <option>Partnership</option>
-                            <option>Support</option>
-
-                        </select>
-
+                    <div class="field">
+                        <div class="input-box">
+                            <i class="fa-solid fa-list"></i>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Subject</option>
+                                <option>General Inquiry</option>
+                                <option>Project Discussion</option>
+                                <option>Partnership</option>
+                                <option>Support</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                        <small class="error"></small>
                     </div>
 
-
-                    <div class="input-box message-box">
-
-                        <i class="fa-regular fa-message"></i>
-
-                        <textarea placeholder="Your Message..." required></textarea>
-
+                    <div class="field">
+                        <div class="input-box message-box">
+                            <i class="fa-regular fa-message"></i>
+                            <textarea id="message" name="message" placeholder="Your Message..." maxlength="500" required></textarea>
+                        </div>
+                        <div class="field-foot">
+                            <small class="error"></small>
+                            <span class="counter" id="counter">0 / 500</span>
+                        </div>
                     </div>
 
+                    <!-- Spam trap: real visitors never see or fill this -->
+                    <input type="text" name="website" id="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                     <div class="form-bottom">
 
-                        <label class="checkbox">
+                        <div class="field">
+                            <label class="checkbox">
+                                <input type="checkbox" id="privacy" required>
+                                <span class="box"><i class="fa-solid fa-check"></i></span>
+                                <span>I agree to the <a href="#">privacy policy</a></span>
+                            </label>
+                            <small class="error"></small>
+                        </div>
 
-                            <input type="checkbox" required>
-
-                            <span></span>
-
-                            I agree to the
-                            <a href="#">privacy policy</a>
-
-                        </label>
-
-
-                        <button type="submit">
-
+                        <button type="submit" id="sendBtn">
                             <i class="fa-regular fa-paper-plane"></i>
-
-                            Send Message
-
+                            <span class="btn-label">Send Message</span>
                             <i class="fa-solid fa-arrow-right"></i>
-
                         </button>
 
                     </div>
 
+                    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
                 </form>
+
+                <div class="success-panel" id="successPanel" aria-live="polite">
+                    <div class="check"><i class="fa-solid fa-check"></i></div>
+                    <h3>Message sent!</h3>
+                    <p>Thanks for reaching out. We'll get back to you as soon as possible.</p>
+                    <button type="button" id="sendAnother">Send another message</button>
+                </div>
 
             </div>
 
-            <div class="building">
+            <div class="building reveal" data-anim="right">
+
+                <div class="building-image"></div>
 
                 <div class="building-text">
                     <span>OUR VISION</span>
-
                     <h2>
                         Innovating Today<br>
                         for a Sustainable<br>
@@ -240,66 +216,51 @@
                     </h2>
                 </div>
 
-                <div class="building-image"></div>
-
             </div>
 
         </section>
 
-        <section class="location-section">
+        <section class="location-section reveal" data-anim="fade-up">
 
-            <div class="map">
+            <div class="map" id="map">
 
-                <div class="map-grid"></div>
+                <div class="map-canvas" id="mapCanvas">
+                    <div class="map-grid"></div>
 
-                <div class="map-pin">
+                    <div class="map-pin">
+                        <span>BML Munjal University</span>
+                        <div class="pin-wrap">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <em class="pulse"></em>
+                        </div>
+                    </div>
 
-                    <span>
-                        BML Munjal University
-                    </span>
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                </div>
-
-                <div class="map-name">
-                    Rohtak
+                    <div class="map-name">Rohtak</div>
                 </div>
 
                 <div class="zoom">
-
-                    <button>+</button>
-                    <button>−</button>
-
+                    <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+                    <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
                 </div>
 
             </div>
 
-
             <div class="location-info">
 
-                <span class="small-title">
-                    VISIT OUR OFFICE
-                </span>
+                <span class="small-title">VISIT OUR OFFICE</span>
 
                 <h2>BML Munjal University</h2>
 
-                <p>
-                    Rohtak, Haryana – 124001, India
-                </p>
+                <p>Rohtak, Haryana – 124001, India</p>
 
-                <button class="directions">
-
+                <a class="directions" target="_blank" rel="noopener"
+                    href="https://www.google.com/maps/search/?api=1&query=BML+Munjal+University+Rohtak">
                     <i class="fa-solid fa-location-dot"></i>
-
                     Get Directions
-
                     <i class="fa-solid fa-arrow-right"></i>
-
-                </button>
+                </a>
 
             </div>
-
 
             <div class="location-message">
 
@@ -322,47 +283,33 @@
     <footer>
 
         <div class="footer-logo">
-
             <span>UrbanForge</span>
-
         </div>
 
-        <p>
-            © 2026 UrbanForge. All rights reserved.
-        </p>
+        <p>© <span id="year">2026</span> UrbanForge. All rights reserved.</p>
 
         <div class="footer-right">
 
             <div class="footer-socials">
-
-                <a href="#">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-                <a href="#">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="#">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="#">
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
 
             <span class="divider"></span>
 
-            <p>
-                Smarter Tech
-                <b>•</b>
-                Greener Future
-            </p>
+            <p>Smarter Tech <b>•</b> Greener Future</p>
 
         </div>
 
     </footer>
 
-    <script src="help.js"></script>
+    <button class="to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../js/help.js"></script>
 
 </body>
 
