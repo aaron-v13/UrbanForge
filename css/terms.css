@@ -1,7 +1,7 @@
 /* Page-specific styles. The navbar and footer come from css/style.css */
-
+ 
 html { scroll-behavior: smooth; }
-
+ 
 /* Keep the shared navbar from stretching or wrapping on this page, and cap the logo.
    style.css sets no width/height on .logo img, so the full-resolution PNG renders
    at its intrinsic size and blows the navbar apart. */
@@ -14,7 +14,7 @@ html { scroll-behavior: smooth; }
     max-width: 100%;
     object-fit: contain;
 }
-
+ 
 /* Keeps this page scrolling normally whatever the shared stylesheet sets on body.
    overflow-x is `clip`, not `hidden`: pairing `hidden` with `visible` makes the
    other axis compute to `auto`, which turns body into a scroll container and
@@ -29,7 +29,7 @@ body.terms-page {
     color: #fff;
     font-family: "Poppins", Arial, sans-serif;
 }
-
+ 
 /* ---------- Skip link ---------- */
 .skip-link {
     position: absolute;
@@ -44,11 +44,11 @@ body.terms-page {
     text-decoration: none;
     transition: top 0.2s ease;
 }
-
+ 
 .skip-link:focus-visible { top: 1rem; }
-
+ 
 #main-content:focus { outline: none; }
-
+ 
 /* ---------- Reading progress ---------- */
 .terms-progress {
     position: fixed;
@@ -60,16 +60,16 @@ body.terms-page {
     background: linear-gradient(135deg, #278cff, #3437e9);
     box-shadow: 0 0 10px #168fff;
 }
-
+ 
 /* ---------- Hero ---------- */
 .terms-hero {
     padding: 4.5rem 6% 2.5rem;
     text-align: center;
     background: radial-gradient(circle at 50% 0%, rgba(0, 91, 255, 0.22), transparent 60%);
 }
-
+ 
 .terms-hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; }
-
+ 
 /* Solid colour first so the heading stays readable if background-clip: text
    is unsupported — without it the transparent fill hides the word entirely. */
 .terms-hero h1 span {
@@ -79,9 +79,9 @@ body.terms-page {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
+ 
 .terms-hero p { max-width: 36rem; margin: 1rem auto 0; color: #b4c1d9; font-size: 0.95rem; line-height: 1.7; }
-
+ 
 .terms-updated {
     display: inline-block;
     margin-top: 1.2rem;
@@ -92,7 +92,7 @@ body.terms-page {
     color: #9fc4ff;
     font-size: 0.75rem;
 }
-
+ 
 /* ---------- Layout ---------- */
 .terms-layout {
     display: grid;
@@ -102,7 +102,7 @@ body.terms-page {
     margin: 0 auto;
     padding: 1.5rem 6% 4rem;
 }
-
+ 
 .terms-toc {
     position: sticky;
     top: 6rem;
@@ -114,9 +114,9 @@ body.terms-page {
     border-radius: 1rem;
     background: linear-gradient(145deg, rgba(8, 27, 56, 0.85), rgba(2, 12, 29, 0.9));
 }
-
+ 
 .terms-toc h2 { margin-bottom: 0.7rem; font-size: 0.85rem; }
-
+ 
 .terms-toc a {
     display: block;
     padding: 0.4rem 0.7rem;
@@ -128,28 +128,28 @@ body.terms-page {
     text-decoration: none;
     transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
-
+ 
 .terms-toc a:hover { color: #fff; }
-
+ 
 .terms-toc a.active,
 .terms-toc a[aria-current="true"] {
     border-left-color: #168fff;
     background: rgba(22, 143, 255, 0.12);
     color: #fff;
 }
-
+ 
 /* ---------- Document ---------- */
 .terms-doc section {
     scroll-margin-top: 6rem;
     padding: 1.6rem 0;
     border-bottom: 1px solid rgba(55, 137, 231, 0.18);
 }
-
+ 
 .terms-doc section:first-child { padding-top: 0; }
 .terms-doc section:last-child { border-bottom: none; }
-
+ 
 .terms-doc h2 { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; font-size: 1.2rem; }
-
+ 
 .terms-doc h2 span {
     flex-shrink: 0;
     display: grid;
@@ -162,15 +162,25 @@ body.terms-page {
     color: #1597ff;
     font-size: 0.8rem;
 }
-
+ 
 .terms-doc p, .terms-doc li { color: #b4c1d9; font-size: 0.9rem; line-height: 1.8; }
 .terms-doc ul { margin: 0.6rem 0 0 1.2rem; }
 .terms-doc a { color: #168fff; }
 .terms-doc a:hover { text-decoration: underline; }
-
+ 
 /* Placeholders you still need to fill in */
 .fill { color: #ffb454; font-weight: 600; }
-
+ 
+/* Footer column headings were h4 directly under the page h2, which skips a
+   heading level. They are h3 now; this keeps the shared h4 look. Add
+   `.footer-col h3` next to the existing `.footer-col h4` rule in style.css
+   if you'd rather keep the sizing in one place. */
+.terms-page .footer-col h3 {
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+ 
 /* ---------- Back to top ---------- */
 .terms-top {
     position: fixed;
@@ -191,15 +201,15 @@ body.terms-page {
     transform: translateY(12px);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
-
+ 
 .terms-top.show { opacity: 1; visibility: visible; transform: none; }
 .terms-top:hover { background: #1b7cff; }
-
+ 
 .terms-toc a:focus-visible, .terms-top:focus-visible, .terms-doc a:focus-visible, .skip-link:focus-visible {
     outline: 2px solid #4a9eff;
     outline-offset: 2px;
 }
-
+ 
 /* ---------- Smaller screens ---------- */
 @media (max-width: 900px) {
     /* minmax(0, 1fr), not 1fr: `1fr` is `minmax(auto, 1fr)`, so the column
@@ -208,7 +218,7 @@ body.terms-page {
        the viewport and clipped the article text on the right. */
     .terms-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
     .terms-doc { min-width: 0; }
-
+ 
     /* Static, but not a 13-row wall: one horizontally scrollable strip
        instead of pushing the article two full screens down the page. */
     .terms-toc {
@@ -218,7 +228,7 @@ body.terms-page {
         min-width: 0;
         padding: 0.9rem 1rem;
     }
-
+ 
     .terms-toc-nav {
         display: flex;
         gap: 0.4rem;
@@ -232,7 +242,7 @@ body.terms-page {
         scrollbar-color: rgba(53, 142, 255, 0.45) transparent;
         -webkit-overflow-scrolling: touch;
     }
-
+ 
     /* Default Windows scrollbar is a chunky grey slab inside the card. */
     .terms-toc-nav::-webkit-scrollbar { height: 6px; }
     .terms-toc-nav::-webkit-scrollbar-track { background: transparent; }
@@ -241,9 +251,9 @@ body.terms-page {
         background: rgba(53, 142, 255, 0.45);
     }
     .terms-toc-nav::-webkit-scrollbar-thumb:hover { background: rgba(53, 142, 255, 0.7); }
-
+ 
     .terms-toc a { scroll-snap-align: start; }
-
+ 
     .terms-toc a {
         flex: 0 0 auto;
         white-space: nowrap;
@@ -251,25 +261,25 @@ body.terms-page {
         border: 1px solid rgba(53, 142, 255, 0.3);
         border-radius: 2rem;
     }
-
+ 
     .terms-toc a.active,
     .terms-toc a[aria-current="true"] {
         border-color: #168fff;
         border-radius: 2rem;
         background: rgba(22, 143, 255, 0.18);
     }
-
+ 
     .terms-hero { padding: 3.2rem 6% 2rem; }
     .terms-hero h1 { font-size: 2.2rem; }
     .terms-page .navbar .logo img { height: 38px; }
 }
-
+ 
 @media (max-width: 420px) {
     .terms-hero h1 { font-size: 1.85rem; }
     .terms-doc h2 { font-size: 1.05rem; }
     .terms-top { right: 1rem; bottom: 1rem; }
 }
-
+ 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
