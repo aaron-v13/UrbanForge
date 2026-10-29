@@ -13,9 +13,9 @@
 
 <body>
     <!-- Loading screen -->
-    <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader" id="loader">
         <img src="assets/image/backrem-Photoroom.png" alt="">
-        <div class="loader-bar"><span></span></div>
+        <div class="loader-bar"><span></span></div>             <!--The outer <div class="loader-bar"> is the progress bar's container., The <span> is an inline element used here as the inner progress indicator.-->
         <p>Loading your city...</p>
     </div>
 
@@ -23,11 +23,11 @@
         <nav class="navbar anim-down">
             <a class="logo" href="index.html"><img src="assets/image/backrem-Photoroom.png" alt="UrbanForge"></a>
             <a class="active" href="index.html">Home</a>
-            <a href="project.html">Projects</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="aboutus.html">About Us</a>
-            <a href="pages/help.html">Help</a>
-            <a class="cta" href="Login.html">Get Started</a>
+            <a href="/pages/projects.html">Projects</a>
+            <a href="/pages/main.html">Build</a>
+            <a href="/pages/aboutus.html">About Us</a>
+            <a href="/pages/help.html">Help</a>
+            <a class="cta" href="/pages/Login.html">Get Started</a>
         </nav>
     </header>
 
@@ -40,7 +40,7 @@
                 powerful modelling tools
             </p>
             <div class="actions anim" style="--d:.55s">
-                <a class="btn primary" href="#capabilities">Explore City</a>
+                <a class="btn primary" href="/pages/main.html">Start Building</a>
             </div>
         </section>
 
@@ -67,7 +67,7 @@
                 <span class="icon">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L5 14h6l-1 8 8-12h-6l1-8z"/></svg>
                 </span>
-                <div><h5>Interactive</h5><h6>&amp; Easy to Use</h6></div>
+                <div><h5>Interactive</h5><h6>& Easy to Use</h6></div>
             </div>
         </section>
     </main>
@@ -96,12 +96,12 @@
             </article>
             <article class="card reveal" data-anim="zoom">
                 <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6zM9 3v15M15 6v15"/></svg></span>
-                <h3>Terrain &amp; Maps</h3>
+                <h3>Terrain & Maps</h3>
                 <p>Build on real-world terrain and map data for realistic city layouts.</p>
             </article>
             <article class="card reveal" data-anim="zoom">
                 <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></span>
-                <h3>Lighting &amp; Time of Day</h3>
+                <h3>Lighting & Time of Day</h3>
                 <p>See your city at sunrise, noon or night with realistic lighting and shadows.</p>
             </article>
             <article class="card reveal" data-anim="zoom">
@@ -159,15 +159,16 @@
         <div class="project-grid">
             <article class="project reveal" data-anim="left">
                 <div class="thumb t1"></div>
-                <div class="info"><h3>Skyline District</h3><p>High-rise business area &middot; 240 buildings</p></div>
+                <div class="info"><h3>Skyline District</h3><p>High-rise business area - 240 buildings</p></div>
             </article>
             <article class="project reveal" data-anim="zoom">
                 <div class="thumb t2"></div>
-                <div class="info"><h3>Riverfront Park</h3><p>Waterfront and green spaces &middot; 80 buildings</p></div>
+                <div class="info"><h3>Riverfront Park</h3><p>Waterfront and green spaces - 80 buildings</p></div>
             </article>
             <article class="project reveal" data-anim="right">
                 <div class="thumb t3"></div>
-                <div class="info"><h3>Smart Suburb</h3><p>Residential planning &middot; 520 buildings</p></div>
+                <div class="info"><h3>Smart Suburb</h3><p>Residential planning - 52
+                    0 buildings</p></div>
             </article>
         </div>
     </section>
@@ -196,12 +197,14 @@
                 <h4>Company</h4>
                 <a href="aboutus.html">About Us</a>
                 <a href="help.html">Help</a>
+                <a href="/pages/terms.html">Terms & Conditions</a>
             </div>
         </div>
         <p class="copy reveal" data-anim="fade-up">&copy; 2026 UrbanForge. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>

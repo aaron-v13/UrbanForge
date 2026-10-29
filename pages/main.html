@@ -1,13 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
-    <script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UrbanForge – City Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="shortcut icon" href="/assets/image/Favicon.png" type="image/x-icon">
+  </head>
+  <body>
+    <header class="navbar">
+      <a class="logo" href="../index.html"><i class="fa-solid fa-city"></i>Urban<span>Forge</span></a>
+      <nav>
+        <a class="logo" href="index.html"><img src="assets/image/backrem-Photoroom.png" alt="UrbanForge"></a>
+        <a href="index.html">Home</a>
+        <a href="/pages/projects.html">Projects</a>
+        <a class = "active" href="/pages/main.html">Build</a>
+        <a href="/pages/aboutus.html">About Us</a>
+        <a href="/pages/help.html">Help</a>
+        <a class="cta " href="/pages/Login.html"></a>
+      </nav>
+    </header>
+
+    <!-- The 3D canvas fills this whole area; everything inside floats on top of it -->
+    <main class="stage" id="viewport">
+      <div class="stats glass">
+        <div class="stat" id="stHappiness"><i class="fa-regular fa-face-smile"></i><b>80%</b><span>Happiness</span><div class="bar"><i></i></div></div>
+        <div class="stat" id="stCitizens"><i class="fa-solid fa-users"></i><b>0</b><span>Citizens</span><div class="bar"><i></i></div></div>
+        <div class="stat" id="stPollution"><i class="fa-solid fa-car"></i><b>0%</b><span>Pollution</span><div class="bar"><i></i></div></div>
+        <div class="stat" id="stWater"><i class="fa-solid fa-droplet"></i><b>100%</b><span>Water</span><div class="bar"><i></i></div></div>
+        <div class="stat" id="stElectricity"><i class="fa-solid fa-bolt"></i><b>100%</b><span>Electricity</span><div class="bar"><i></i></div></div>
+        <div class="stat" id="stBudget"><i class="fa-solid fa-dollar-sign"></i><b>$100,000</b><span>Budget</span><div class="bar"><i></i></div></div>
+      </div>
+
+      <div class="hint glass" id="hintBox">
+        <h2>Controls</h2>
+        <p><kbd>↑ ↓ ← →</kbd> Move building, or pan the view</p>
+        <p><kbd>W</kbd><kbd>E</kbd><kbd>R</kbd> Handles: move, rotate, scale</p>
+        <p><kbd>Del</kbd> Delete building</p>
+        <p><kbd>Esc</kbd> Cancel or deselect</p>
+        <p><kbd>B</kbd> Open buildings</p>
+      </div>
+
+      <div class="dock">
+        <p id="status" class="glass"></p>
+        <div class="dock-bar glass">
+          <button class="tool" id="hintBtn"><i class="fa-regular fa-keyboard"></i>Controls</button>
+          <button class="build-btn" id="buildBtn"><i class="fa-solid fa-cube"></i>Build</button>
+          <button class="tool danger" id="deleteBtn"><i class="fa-regular fa-trash-can"></i>Delete</button>
+        </div>
+      </div>
+
+      <aside class="drawer glass" id="drawer">
+        <div class="drawer-head">
+          <h2>Buildings</h2>
+          <button id="closeDrawer" aria-label="Close buildings"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="Search buildings" autocomplete="off" /></label>
+        <div id="assetLibrary"></div>
+      </aside>
+    </main>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="/js/main.js"></script>
+  </body>
 </html>
