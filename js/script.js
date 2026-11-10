@@ -18,7 +18,7 @@ const revealObserver = new IntersectionObserver((entries) => {
             }, 1400);
         }
     });
-}, { threshold: 0.15 });
+}, { threshold: 0.15 });                // when 15 percent of the target is visible then it triggers the observer
 
 revealItems.forEach((item) => {
     // stagger items that sit side by side

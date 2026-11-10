@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | UrbanForge</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="shortcut icon" href="../assets/image/Favicon.png" type="image/x-icon">
+</head>
+<body>
+    <main class="login-card">
+        <a class="logo" href="../index.html">
+            <img src="../assets/image/backrem-Photoroom.png" alt="UrbanForge">
+        </a>
+
+        <h1>Create <span>Account</span></h1>
+        <p class="subtitle">Join UrbanForge and start building</p>
+
+        <form id="signupForm" novalidate>
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="name" placeholder="Full name"
+                        autocomplete="name" required>
+                </div>
+                <small class="error" id="nameError"></small>
+            </div>
+
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email address"
+                        autocomplete="email" required>
+                </div>
+                <small class="error" id="emailError"></small>
+            </div>
+
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Create password"
+                        autocomplete="new-password" required>
+                    <i class="fa-regular fa-eye toggle" id="togglePassword"
+                        role="button" tabindex="0" aria-label="Show password"></i>
+                </div>
+                <small class="error" id="passwordError"></small>
+            </div>
+
+            <div class="field">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="confirmPassword"
+                        placeholder="Confirm password" autocomplete="new-password" required>
+                </div>
+                <small class="error" id="confirmPasswordError"></small>
+            </div>
+
+            <button type="submit" class="signin" id="signupBtn">Create Account</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="createacc">
+            <span>Already have an account?</span>
+            <a class="link" href="/pages/Login.html">Sign In</a>
+        </p>
+    </main>
+
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/signup.js" defer></script>
+</body>
+</html>

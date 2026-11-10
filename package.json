@@ -1,0 +1,26 @@
+{
+  "name": "urbanforge",
+  "version": "1.0.0",
+  "description": "UrbanForge is a 3D city-building simulator that allows users to design, construct, and manage their own virtual city. The project focuses on city planning, infrastructure development, and interactive 3D visualization.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaron-v13/UrbanForge.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aaron-v13/UrbanForge/issues"
+  },
+  "homepage": "https://github.com/aaron-v13/UrbanForge#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^5.3.0",
+    "express-session": "^1.19.0"
+  }
+}

@@ -173,16 +173,19 @@ renderer.domElement.addEventListener('pointerdown', e => {
 const drawer = document.getElementById('drawer');
 const hintBox = document.getElementById('hintBox');
 
-function setStatus(text) { document.getElementById('status').textContent = text; }
+function setStatus(text) {
+    const el = document.getElementById('status');
+    if (el) el.textContent = text;
+}
 setStatus('Click Build to add a building. Press H for controls.');
 
 const closeDrawer = () => drawer.classList.remove('open');
 const toggleDrawer = () => drawer.classList.toggle('open');
 
-document.getElementById('buildBtn').addEventListener('click', toggleDrawer);
-document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
-document.getElementById('hintBtn').addEventListener('click', () => hintBox.classList.toggle('show'));
-document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
+document.getElementById('buildBtn')?.addEventListener('click', toggleDrawer);
+document.getElementById('closeDrawer')?.addEventListener('click', closeDrawer);
+document.getElementById('hintBtn')?.addEventListener('click', () => hintBox.classList.toggle('show'));
+document.getElementById('deleteBtn')?.addEventListener('click', deleteSelected);
 
 function pickAsset(asset) {
     closeDrawer();
@@ -196,6 +199,7 @@ function deleteSelected() {
     if (i !== -1) placedObjects.splice(i, 1);
     transformControls.detach();
     selectedObject = null;
+    setStatus('Building deleted.');
 }
 
 function cancelPlacement() {
@@ -211,37 +215,39 @@ function cancelPlacement() {
 // ---- Building list (grouped by category) ----
 const assetLibrary = document.getElementById('assetLibrary');
 
-[...new Set(assets.map(a => a.category))].forEach(category => {
-    const section = document.createElement('div');
-    section.className = 'categorySection';
+if (assetLibrary) {
+    [...new Set(assets.map(a => a.category))].forEach(category => {
+        const section = document.createElement('div');
+        section.className = 'categorySection';
 
-    const header = document.createElement('button');
-    header.className = 'categoryHeader';
-    header.textContent = '▼ ' + category;
+        const header = document.createElement('button');
+        header.className = 'categoryHeader';
+        header.textContent = '▼ ' + category;
 
-    const items = document.createElement('div');
-    items.className = 'categoryItems';
+        const items = document.createElement('div');
+        items.className = 'categoryItems';
 
-    assets.filter(a => a.category === category).forEach(asset => {
-        const btn = document.createElement('button');
-        btn.className = 'assetButton';
-        btn.textContent = asset.name;
-        btn.addEventListener('click', () => pickAsset(asset));
-        items.appendChild(btn);
+        assets.filter(a => a.category === category).forEach(asset => {
+            const btn = document.createElement('button');
+            btn.className = 'assetButton';
+            btn.textContent = asset.name;
+            btn.addEventListener('click', () => pickAsset(asset));
+            items.appendChild(btn);
+        });
+
+        header.addEventListener('click', () => {
+            const open = items.style.display !== 'none';
+            items.style.display = open ? 'none' : 'block';
+            header.textContent = (open ? '▶ ' : '▼ ') + category;
+        });
+
+        section.append(header, items);
+        assetLibrary.appendChild(section);
     });
-
-    header.addEventListener('click', () => {
-        const open = items.style.display !== 'none';
-        items.style.display = open ? 'none' : 'block';
-        header.textContent = (open ? '▶ ' : '▼ ') + category;
-    });
-
-    section.append(header, items);
-    assetLibrary.appendChild(section);
-});
+}
 
 // ---- Search ----
-document.getElementById('search').addEventListener('input', e => {
+document.getElementById('search')?.addEventListener('input', e => {
     const q = e.target.value.toLowerCase();
     document.querySelectorAll('.categorySection').forEach(section => {
         let any = false;
@@ -255,8 +261,6 @@ document.getElementById('search').addEventListener('input', e => {
 });
 
 // ---- Keyboard ----
-// Arrow keys move the selected building one square (relative to the camera).
-// With nothing selected they pan the view.
 const snapToAxis = v => Math.abs(v.x) > Math.abs(v.z)
     ? new THREE.Vector3(Math.sign(v.x), 0, 0)
     : new THREE.Vector3(0, 0, Math.sign(v.z));
@@ -264,7 +268,7 @@ const snapToAxis = v => Math.abs(v.x) > Math.abs(v.z)
 window.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
         if (cancelPlacement()) return;
-        if (drawer.classList.contains('open')) return closeDrawer();
+        if (drawer && drawer.classList.contains('open')) return closeDrawer();
         transformControls.detach();
         selectedObject = null;
         return;
@@ -273,7 +277,7 @@ window.addEventListener('keydown', e => {
 
     const k = e.key.toLowerCase();
     if (k === 'b') toggleDrawer();
-    if (k === 'h') hintBox.classList.toggle('show');
+    if (k === 'h' && hintBox) hintBox.classList.toggle('show');
     if (selectedObject) {
         if (k === 'w') transformControls.setMode('translate');
         if (k === 'e') transformControls.setMode('rotate');
@@ -305,13 +309,16 @@ window.addEventListener('keydown', e => {
     }
 });
 
-// ---- Stats (placeholder formulas: change them to suit your game) ----
+// ---- Stats update ----
 let lastCount = -1;
 
 function setStat(id, text, pct) {
     const el = document.getElementById(id);
-    el.querySelector('b').textContent = text;
-    el.querySelector('.bar i').style.width = Math.max(0, Math.min(100, pct)) + '%';
+    if (!el) return;
+    const b = el.querySelector('b');
+    const bar = el.querySelector('.bar i');
+    if (b) b.textContent = text;
+    if (bar) bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
 }
 
 function updateStats() {
