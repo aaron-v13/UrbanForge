@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "005f04ca-0960-4f22-bb6b-ed5bdbffe36f",
+    "name": "Aaron Verma",
+    "email": "aaron.verma.25cse@bmu.edu.in",
+    "password": "$2b$10$Jmt./7QQNLMszTVIgUDHUeXzIQ9uaFsFS4VK7x7sJDWM6jYEKn0Ei",
+    "createdAt": "2026-11-10T17:52:25.981Z"
+  }
+]

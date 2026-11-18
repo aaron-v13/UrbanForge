@@ -8,6 +8,79 @@ import { assets } from './assetList.js';
 const MODEL_ROOT = '/assets';
 
 // ==========================================
+// BACKEND API PERSISTENCE (MONGODB / JSON)
+// ==========================================
+async function apiSaveBuilding(buildingData) {
+    try {
+        const res = await fetch('/api/city/buildings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(buildingData)
+        });
+        const data = await res.json();
+        if (data.success) {
+            console.log('Saved to DB:', buildingData.buildingId);
+        }
+    } catch (err) {
+        console.warn('Could not save building to DB:', err);
+    }
+}
+
+async function apiDeleteBuilding(buildingId) {
+    try {
+        const res = await fetch(`/api/city/buildings/${encodeURIComponent(buildingId)}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+        const data = await res.json();
+        if (data.success) {
+            console.log('Deleted from DB:', buildingId);
+        }
+    } catch (err) {
+        console.warn('Could not delete building from DB:', err);
+    }
+}
+
+async function loadSavedBuildings() {
+    try {
+        const res = await fetch('/api/city/buildings', { credentials: 'include' });
+        const data = await res.json();
+        if (data.success && Array.isArray(data.buildings)) {
+            for (const b of data.buildings) {
+                loader.load(
+                    MODEL_ROOT + b.modelPath,
+                    gltf => {
+                        const model = gltf.scene;
+                        prepareModel(model, b.scale ?? 1);
+                        model.position.set(b.position.x, b.position.y, b.position.z);
+                        if (b.rotation) {
+                            model.rotation.set(b.rotation.x, b.rotation.y, b.rotation.z);
+                        }
+                        model.userData = {
+                            buildingId: b.buildingId,
+                            assetId: b.assetId,
+                            assetName: b.assetName,
+                            modelPath: b.modelPath,
+                            scale: b.scale
+                        };
+                        scene.add(model);
+                        placedObjects.push(model);
+                    },
+                    undefined,
+                    err => console.warn('Could not load saved model:', b.modelPath, err)
+                );
+            }
+        }
+    } catch (err) {
+        console.warn('Could not fetch saved buildings:', err);
+    }
+}
+
+// Load buildings on page load
+loadSavedBuildings();
+
+// ==========================================
 // SCENE, CAMERA, RENDERER
 // ==========================================
 const viewport = document.getElementById('viewport');
@@ -111,6 +184,13 @@ function startPlacement(asset) {
         gltf => {
             placementModel = gltf.scene;
             prepareModel(placementModel, asset.scale ?? 1);
+            placementModel.userData = {
+                buildingId: 'bld_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                assetId: asset.id,
+                assetName: asset.name,
+                modelPath: asset.model,
+                scale: asset.scale ?? 1
+            };
             scene.add(placementModel);
             placementMode = true;
             controls.enabled = false;
@@ -139,10 +219,32 @@ renderer.domElement.addEventListener('click', () => {
     placedObjects.push(placementModel);
     selectedObject = placementModel;
     transformControls.attach(selectedObject);
+
+    // Save to Database
+    if (selectedObject.userData && selectedObject.userData.buildingId) {
+        apiSaveBuilding({
+            buildingId: selectedObject.userData.buildingId,
+            assetId: selectedObject.userData.assetId,
+            assetName: selectedObject.userData.assetName,
+            modelPath: selectedObject.userData.modelPath,
+            scale: selectedObject.userData.scale,
+            position: {
+                x: selectedObject.position.x,
+                y: selectedObject.position.y,
+                z: selectedObject.position.z
+            },
+            rotation: {
+                x: selectedObject.rotation.x,
+                y: selectedObject.rotation.y,
+                z: selectedObject.rotation.z
+            }
+        });
+    }
+
     placementModel = null;
     placementMode = false;
     controls.enabled = true;
-    setStatus('Placed. Arrow keys move it, Delete removes it.');
+    setStatus('Placed & Saved to Database! Arrow keys move it, Delete removes it.');
 });
 
 // ==========================================
@@ -194,12 +296,16 @@ function pickAsset(asset) {
 
 function deleteSelected() {
     if (!selectedObject) return;
+    const bId = selectedObject.userData?.buildingId;
+    if (bId) {
+        apiDeleteBuilding(bId);
+    }
     scene.remove(selectedObject);
     const i = placedObjects.indexOf(selectedObject);
     if (i !== -1) placedObjects.splice(i, 1);
     transformControls.detach();
     selectedObject = null;
-    setStatus('Building deleted.');
+    setStatus('Building deleted from Database.');
 }
 
 function cancelPlacement() {

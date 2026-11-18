@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanForge - System Status</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #060b18;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .status-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .badge-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+        .badge-warning {
+            background: rgba(234, 179, 8, 0.2);
+            color: #facc15;
+            border: 1px solid rgba(234, 179, 8, 0.4);
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-card">
+        <h1>UrbanForge Diagnostics</h1>
+        <p>Dynamic Server-Side Rendered View via EJS</p>
+        
+        <div class="info-row">
+            <span>Database Status</span>
+            <% if (dbConnected) { %>
+                <span class="badge badge-success">MongoDB Connected</span>
+            <% } else { %>
+                <span class="badge badge-warning">JSON File Fallback Active</span>
+            <% } %>
+        </div>
+
+        <div class="info-row">
+            <span>Server Port</span>
+            <span><%= port %></span>
+        </div>
+
+        <div class="info-row">
+            <span>Server Uptime</span>
+            <span><%= uptime %>s</span>
+        </div>
+
+        <a href="/" class="back-link">&larr; Return to UrbanForge 3D Simulator</a>
+    </div>
+</body>
+</html>

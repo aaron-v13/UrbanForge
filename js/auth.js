@@ -20,10 +20,10 @@
     function getUser() {
         try {
             const saved =
-                localStorage.getItem(USER_KEY) ||
+                localStorage.getItem(USER_KEY) ||               // first look in the local storage if nothing is there then look in session storage
                 sessionStorage.getItem(USER_KEY);
 
-            return saved ? JSON.parse(saved) : null;
+            return saved ? JSON.parse(saved) : null;            // if something found, turn text into js object. if not return null
         } catch (error) {
             return null;
         }
@@ -41,8 +41,8 @@
             localStorage.removeItem(USER_KEY);
             sessionStorage.removeItem(USER_KEY);
 
-            const storage = remember ? localStorage : sessionStorage;
-            storage.setItem(USER_KEY, JSON.stringify(publicUser));
+            const storage = remember ? localStorage : sessionStorage;       // if remember true, it saves to local storage otherwise session
+            storage.setItem(USER_KEY, JSON.stringify(publicUser));          // since storage only holds the texts, object converted to text 
 
             return true;
         } catch (error) {
@@ -61,10 +61,10 @@
 
     // Helper to safely parse responses from the server
     async function parseApiResponse(response) {
-        let text = "";
+        let text = "";                                  // let text = "" is declared outside the try, so the catch can still use it.
         try {
-            text = await response.text();
-            const data = JSON.parse(text);
+            text = await response.text();               // await used because it takkes time to read body
+            const data = JSON.parse(text);              
             return { ok: response.ok, status: response.status, data };
         } catch (err) {
             console.warn("Non-JSON server response:", text);
@@ -87,7 +87,7 @@
     async function login(email, password, remember = true) {
         try {
             const endpoint = getApiBase() + "/api/auth/login";
-            const response = await fetch(endpoint, {
+            const response = await fetch(endpoint, {                // fetch sends the request and await waits until the server replies
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -102,14 +102,14 @@
             const parsed = await parseApiResponse(response);
             const data = parsed.data || {};
 
-            if (!parsed.ok) {
+            if (!parsed.ok) {                               // server said no
                 return {
                     success: false,
                     message: data.message || `Login failed (HTTP ${parsed.status}).`
                 };
             }
 
-            if (!data.user) {
+            if (!data.user) {                               // server said ok but no user is returned 
                 return {
                     success: false,
                     message: "The server returned an invalid response."
