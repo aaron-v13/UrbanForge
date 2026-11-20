@@ -109,6 +109,19 @@ async function login(req, res) {
         if (!user) {
             const users = await readUsers();
             user = users.find(u => u.email === normalizedEmail);
+            if (user && useMongo) {
+                try {
+                    const migrated = await User.create({
+                        name: user.name,
+                        email: user.email,
+                        password: user.password
+                    });
+                    user = migrated;
+                    console.log(`[MongoDB] Synced user "${normalizedEmail}" to MongoDB Atlas.`);
+                } catch (e) {
+                    // Handled if exists
+                }
+            }
         }
 
         if (!user) {

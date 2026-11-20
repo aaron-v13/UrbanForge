@@ -10,32 +10,56 @@ const MODEL_ROOT = '/assets';
 // ==========================================
 // BACKEND API PERSISTENCE (MONGODB / JSON)
 // ==========================================
+function getApiBase() {
+    if (typeof window !== 'undefined' && window.location && window.location.port === '3000') {
+        return '';
+    }
+    return 'http://localhost:3000';
+}
+
+function getCurrentUserId() {
+    try {
+        const u = window.UrbanForgeAuth?.getUser() || 
+                  JSON.parse(localStorage.getItem('urbanforge_user') || 'null') ||
+                  JSON.parse(sessionStorage.getItem('urbanforge_user') || 'null');
+        return u?.id || u?.email || 'guest';
+    } catch {
+        return 'guest';
+    }
+}
+
 async function apiSaveBuilding(buildingData) {
     try {
-        const res = await fetch('/api/city/buildings', {
+        const endpoint = getApiBase() + '/api/city/buildings';
+        const payload = { ...buildingData, userId: getCurrentUserId() };
+        const res = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(buildingData)
+            body: JSON.stringify(payload)
         });
         const data = await res.json();
         if (data.success) {
             console.log('Saved to DB:', buildingData.buildingId);
+            setStatus(`Saved to ${data.storage || 'Database'}! (${buildingData.assetName})`);
         }
     } catch (err) {
         console.warn('Could not save building to DB:', err);
+        setStatus('Placed locally. (Start server via start-server.bat to save to MongoDB).');
     }
 }
 
 async function apiDeleteBuilding(buildingId) {
     try {
-        const res = await fetch(`/api/city/buildings/${encodeURIComponent(buildingId)}`, {
+        const endpoint = getApiBase() + `/api/city/buildings/${encodeURIComponent(buildingId)}?userId=${encodeURIComponent(getCurrentUserId())}`;
+        const res = await fetch(endpoint, {
             method: 'DELETE',
             credentials: 'include'
         });
         const data = await res.json();
         if (data.success) {
             console.log('Deleted from DB:', buildingId);
+            setStatus(`Deleted from ${data.storage || 'Database'}.`);
         }
     } catch (err) {
         console.warn('Could not delete building from DB:', err);
@@ -44,9 +68,11 @@ async function apiDeleteBuilding(buildingId) {
 
 async function loadSavedBuildings() {
     try {
-        const res = await fetch('/api/city/buildings', { credentials: 'include' });
+        const endpoint = getApiBase() + `/api/city/buildings?userId=${encodeURIComponent(getCurrentUserId())}`;
+        const res = await fetch(endpoint, { credentials: 'include' });
         const data = await res.json();
-        if (data.success && Array.isArray(data.buildings)) {
+        if (data.success && Array.isArray(data.buildings) && data.buildings.length > 0) {
+            setStatus(`Loaded ${data.buildings.length} building(s) from ${data.storage || 'Database'}.`);
             for (const b of data.buildings) {
                 loader.load(
                     MODEL_ROOT + b.modelPath,
@@ -71,9 +97,12 @@ async function loadSavedBuildings() {
                     err => console.warn('Could not load saved model:', b.modelPath, err)
                 );
             }
+        } else if (data.success) {
+            setStatus(`Connected to ${data.storage || 'Backend'}. Click Build to add buildings.`);
         }
     } catch (err) {
         console.warn('Could not fetch saved buildings:', err);
+        setStatus('Ready. Tip: Run start-server.bat for live MongoDB saving.');
     }
 }
 

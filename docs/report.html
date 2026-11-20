@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UrbanForge: Full-Stack Integration & Final Technical Report</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.55;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    font-size: 22pt;
+    color: #0f172a;
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+  .subtitle {
+    font-size: 11pt;
+    color: #475569;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-bottom: 2px solid #0284c7;
+    padding-bottom: 8px;
+  }
+  .meta-grid {
+    display: table;
+    width: 100%;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+  }
+  .meta-row {
+    display: table-row;
+  }
+  .meta-cell {
+    display: table-cell;
+    padding: 3px 10px;
+    font-size: 9pt;
+  }
+  .meta-cell strong {
+    color: #0f172a;
+  }
+  h2 {
+    font-size: 13pt;
+    color: #0f172a;
+    border-bottom: 1px solid #cbd5e1;
+    padding-bottom: 4px;
+    margin-top: 22px;
+    margin-bottom: 10px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt;
+    color: #0369a1;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    page-break-after: avoid;
+  }
+  p, li {
+    font-size: 9.5pt;
+    color: #334155;
+  }
+  ul {
+    margin-top: 4px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+    padding: 7px 9px;
+    border: 1px solid #cbd5e1;
+  }
+  td {
+    padding: 6px 9px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+  .badge-done {
+    background: #dcfce7;
+    color: #15803d;
+  }
+  code {
+    font-family: Consolas, Monaco, 'Courier New', Courier, monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #0284c7;
+  }
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 8pt;
+    line-height: 1.4;
+    overflow-x: auto;
+    margin: 10px 0;
+    page-break-inside: avoid;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<h1>UrbanForge: Full-Stack Integration Report</h1>
+<div class="subtitle">Group-7 &bull; Final Course Submission &bull; Technical Architecture &amp; Delivery</div>
+
+<div class="meta-grid">
+  <div class="meta-row">
+    <div class="meta-cell"><strong>Project:</strong> UrbanForge (3D City Builder)</div>
+    <div class="meta-cell"><strong>Group:</strong> Group-7</div>
+    <div class="meta-cell"><strong>Date:</strong> November 2026</div>
+  </div>
+  <div class="meta-row">
+    <div class="meta-cell"><strong>Stack:</strong> MERN (Three.js, Express 5, Node.js, MongoDB Atlas, EJS)</div>
+    <div class="meta-cell"><strong>Repository:</strong> github.com/aaron-v13/UrbanForge</div>
+    <div class="meta-cell"><strong>Status:</strong> Production Functional (100%)</div>
+  </div>
+</div>
+
+<h2>1. Executive Summary</h2>
+<p>
+  UrbanForge has progressed from an initial frontend prototype into a comprehensive, production-ready full-stack web application. The platform integrates high-performance client-side 3D WebGL rendering (using Three.js) with a robust, modular Model-View-Controller (MVC) Express.js backend. User authentication and real-time 3D city layouts are persistently synchronized with <strong>MongoDB Atlas via Mongoose ODM</strong>, paired with a resilient local JSON fallback engine to ensure absolute system reliability.
+</p>
+<ul>
+  <li><strong>Complete Client Experience:</strong> Interactive 3D scene featuring 12 customized GLTF models, gizmo transformation handles (Move, Rotate, Scale), real-time urban vitals panel (Happiness, Population, Pollution, Water, Energy, Budget), and fully responsive navigation/authentication interfaces.</li>
+  <li><strong>Full-Stack Data Synchronization:</strong> Seamless bidirectional communication connecting user authentication, cryptographic session cookies, and immediate database write/delete operations for placed city buildings.</li>
+  <li><strong>Dual Database Engine:</strong> Primary cloud integration with MongoDB Atlas powered by Mongoose Schemas (<code>User</code>, <code>Building</code>, <code>CityLayout</code>) alongside an automatic JSON file fallback system (<code>data/users.json</code>, <code>data/buildings.json</code>).</li>
+  <li><strong>Template Engine Implementation:</strong> Dynamic server-side diagnostics view powered by <strong>EJS</strong> at <code>/status</code>, fulfilling the academic evaluation criteria for template engine integration alongside static file serving.</li>
+</ul>
+
+<h2>2. Rubric Assessment Alignment</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Rubric Component</th>
+      <th style="width: 10%;">Weight</th>
+      <th style="width: 50%;">Implementation Details in UrbanForge</th>
+      <th style="width: 15%;">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Frontend–Backend Data Flow</strong></td>
+      <td><strong>15%</strong></td>
+      <td>Asynchronous REST API queries for registration, sign-in, session validation (<code>/api/auth/me</code>), instant building placement persistence (<code>POST /api/city/buildings</code>), building deletion (<code>DELETE</code>), and automated world rehydration.</td>
+      <td><span class="badge badge-done">100% Done</span></td>
+    </tr>
+    <tr>
+      <td><strong>Node.js / Express Setup</strong></td>
+      <td><strong>10%</strong></td>
+      <td>Enterprise-standard MVC layout organized within the <code>backend/</code> folder; Express 5 route handlers, secure sessions (<code>express-session</code>), CORS configuration, and environment decoupling via <code>dotenv</code>.</td>
+      <td><span class="badge badge-done">100% Done</span></td>
+    </tr>
+    <tr>
+      <td><strong>Template Engines &amp; Static Files</strong></td>
+      <td><strong>5%</strong></td>
+      <td>Express serves static frontend client assets (<code>pages/</code>, <code>css/</code>, <code>js/</code>, <code>assets/</code>) while simultaneously rendering a dynamic server diagnostics dashboard via <strong>EJS</strong> (<code>backend/views/status.ejs</code>).</td>
+      <td><span class="badge badge-done">100% Done</span></td>
+    </tr>
+    <tr>
+      <td><strong>MongoDB Operations via Mongoose</strong></td>
+      <td><strong>5%</strong></td>
+      <td>Mongoose ODM cluster integration, schema definitions with validation and indexing (<code>User.js</code>, <code>Building.js</code>), executing full CRUD operations with graceful fallback handling.</td>
+      <td><span class="badge badge-done">100% Done</span></td>
+    </tr>
+    <tr>
+      <td><strong>Innovation &amp; Usability</strong></td>
+      <td><strong>5%</strong></td>
+      <td>In-browser 3D city building using raycasting collision, transform controls, dynamic day/night ambient lighting, and mathematical simulation algorithms calculating urban dynamics.</td>
+      <td><span class="badge badge-done">100% Done</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2>3. System Architecture &amp; Data Flow</h2>
+<pre>
+                                 [ CLIENT BROWSER ]
+                  Three.js 3D Viewport (WebGL) &bull; Dynamic UI (auth.js)
+                                         │ ▲
+                               (HTTP REST / JSON / Cookies)
+                                         ▼ │
+                           [ EXPRESS.JS BACKEND (MVC) ]
+        ┌──────────────────────────────────────────────────────────────┐
+        │  Routes (/api/auth, /api/city) ──▶ Controllers &bull; Middleware  │
+        │  EJS View Engine (/status)     ──▶ Static Files Handler      │
+        └──────────────────────────────────────────────────────────────┘
+                                         │ ▲
+                               (Mongoose ODM / File IO)
+                                         ▼ │
+                               [ STORAGE LAYER ]
+           Primary: MongoDB Atlas Cloud Cluster  │  Fallback: Local JSON Store
+</pre>
+
+<h2>4. Page &amp; Feature Implementation Status</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 22%;">Page / Module</th>
+      <th style="width: 28%;">Route &amp; File</th>
+      <th style="width: 12%;">Status</th>
+      <th style="width: 38%;">Delivered Functionality &amp; Backend Hook</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Home / Landing</strong></td>
+      <td><code>index.html</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>Product showcase, interactive feature cards, animated statistics counters, and auth-aware navbar.</td>
+    </tr>
+    <tr>
+      <td><strong>3D City Builder</strong></td>
+      <td><code>pages/main.html</code><br><code>js/main.js</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>Three.js 3D canvas, 12 GLTF models, raycast placement, transformation gizmos, and <strong>real-time MongoDB sync for all placements/deletions</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>User Sign Up</strong></td>
+      <td><code>pages/signup.html</code><br><code>js/signup.js</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>Real-time input validation, duplicate account prevention, salted bcrypt password hashing, and user creation in MongoDB.</td>
+    </tr>
+    <tr>
+      <td><strong>User Sign In</strong></td>
+      <td><code>pages/Login.html</code><br><code>js/login.js</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>Credential verification against database, session cookie initialization, Remember Me caching, and dynamic profile avatar dropdown.</td>
+    </tr>
+    <tr>
+      <td><strong>Help &amp; Contact</strong></td>
+      <td><code>pages/help.html</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>Contact inquiry form, character limits, BML Munjal University location showcase, and interactive UI controls.</td>
+    </tr>
+    <tr>
+      <td><strong>Terms of Service</strong></td>
+      <td><code>pages/terms.html</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td>13 formal legal sections, live reading progress bar indicator, and dynamic table of contents jump links.</td>
+    </tr>
+    <tr>
+      <td><strong>Server Diagnostics</strong></td>
+      <td><code>/status</code><br><code>backend/views/status.ejs</code></td>
+      <td><span class="badge badge-done">Complete</span></td>
+      <td><strong>Dynamic EJS rendered dashboard</strong> showing real-time MongoDB connection health, server uptime, and operational ports.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>5. 3D Simulator &amp; Real-Time Database Synchronization</h2>
+<p>
+  A primary technical accomplishment of UrbanForge is the immediate synchronization between user interactions in the 3D WebGL viewport and the backend database:
+</p>
+<ul>
+  <li><strong>Instant Placement Persistence:</strong> When a building is placed on the 100&times;100 coordinate grid, the client generates a unique entity ID (<code>bld_&lt;timestamp&gt;_&lt;hash&gt;</code>) and dispatches a <code>POST /api/city/buildings</code> payload containing coordinates (X, Y, Z), rotation, model path, and scale factor. Mongoose inserts/upserts the record in MongoDB Atlas.</li>
+  <li><strong>Instant Deletion Sync:</strong> Selecting any placed object and clicking Delete (or pressing <kbd>Del</kbd>) immediately executes an HTTP <code>DELETE /api/city/buildings/:buildingId</code>, removing the document from the database in real time.</li>
+  <li><strong>World State Rehydration:</strong> Upon browser reload or revisiting the site, <code>loadSavedBuildings()</code> automatically fetches existing records from MongoDB and re-instantiates all 3D meshes at their exact coordinates.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>6. Backend Engineering &amp; Schema Design</h2>
+<p>
+  The backend is strictly architected using MVC design principles within the <code>backend/</code> folder:
+</p>
+<pre>
+backend/
+├── config/db.js              # MongoDB Mongoose connection &amp; status inspector
+├── controllers/
+│   ├── authController.js     # User registration, login verification, session audit
+│   └── cityController.js     # Real-time CRUD handlers for 3D buildings &amp; cities
+├── models/
+│   ├── Building.js           # Mongoose ODM Schema for 3D world entities
+│   ├── CityLayout.js         # Mongoose ODM Schema for city world saves
+│   └── User.js               # Mongoose ODM Schema for user accounts
+├── routes/
+│   ├── authRoutes.js         # Authentication REST API routes
+│   └── cityRoutes.js         # Building &amp; layout REST API routes
+├── services/fileStorage.js   # Reliable JSON fallback storage engine
+├── views/status.ejs          # EJS dynamic server-side template
+└── server.js                 # Central Express configuration, middleware, static files
+</pre>
+
+<h3>Database Schemas (Mongoose ODM)</h3>
+<ul>
+  <li><strong>User Schema (<code>models/User.js</code>):</strong> Stores <code>name</code> (String), <code>email</code> (String, unique, indexed, lowercase), <code>password</code> (String, salted bcrypt hash), and automatic <code>createdAt</code> / <code>updatedAt</code> timestamps.</li>
+  <li><strong>Building Schema (<code>models/Building.js</code>):</strong> Stores <code>userId</code> (String, indexed), <code>buildingId</code> (String, unique), <code>assetId</code> &amp; <code>assetName</code> (String), <code>modelPath</code> (String), <code>scale</code> (Number), <code>position</code> ({ x, y, z }), and <code>rotation</code> ({ x, y, z }).</li>
+</ul>
+
+<h2>7. Repository &amp; Commit Activity Log</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 18%;">Date</th>
+      <th style="width: 25%;">Contributor</th>
+      <th style="width: 57%;">Technical Deliverables &amp; Commit Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>18 Nov 2026</strong></td>
+      <td><strong>aaron-v13</strong></td>
+      <td>Full-stack MVC restructuring, MongoDB Atlas integration, Mongoose schemas (<code>User</code>, <code>Building</code>, <code>CityLayout</code>), real-time building save/delete API, EJS status view engine, and <code>.gitignore</code> setup.</td>
+    </tr>
+    <tr>
+      <td><strong>10 Nov 2026</strong></td>
+      <td><strong>aaron-v13</strong></td>
+      <td>Express backend session architecture, bcryptjs password hashing pipeline, and initial auth routes.</td>
+    </tr>
+    <tr>
+      <td><strong>29 Oct 2026</strong></td>
+      <td><strong>hitenderyadav600-cmd</strong></td>
+      <td>Asset pipeline integration, visual review uploads, and asset directory management.</td>
+    </tr>
+    <tr>
+      <td><strong>29 Oct 2026</strong></td>
+      <td><strong>priyanshirai25cse</strong></td>
+      <td>Frontend UI asset structuring and documentation resource synchronization.</td>
+    </tr>
+    <tr>
+      <td><strong>24&ndash;29 Oct 2026</strong></td>
+      <td><strong>disha125cse-eng</strong></td>
+      <td>Terms &amp; Conditions interface implementation, scroll tracking script, and Figma design asset alignment.</td>
+    </tr>
+    <tr>
+      <td><strong>18 Oct 2026</strong></td>
+      <td><strong>aaron-v13</strong></td>
+      <td>Three.js scene integration, 12 GLTF model loaders, raycasting logic, and Home/Login CSS modernization.</td>
+    </tr>
+    <tr>
+      <td><strong>02 Oct 2026</strong></td>
+      <td><strong>ShauryaTyagi26</strong></td>
+      <td>Initial 3D builder prototyping and model bundle imports.</td>
+    </tr>
+    <tr>
+      <td><strong>18&ndash;30 Sep 2026</strong></td>
+      <td><strong>aaron-v13, disha125cse-eng</strong></td>
+      <td>Repository initialization, foundational HTML/CSS layout, and Figma UI wireframe generation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>8. Conclusion</h2>
+<p>
+  UrbanForge successfully satisfies all academic and technical requirements of the evaluation rubric. Through modular Express 5 architecture, Three.js 3D visualization, Mongoose ODM database management, EJS server-side rendering, and continuous data synchronization, the project demonstrates technical depth, practical innovation, and professional execution.
+</p>
+
+</body>
+</html>

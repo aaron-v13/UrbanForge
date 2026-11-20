@@ -28,15 +28,18 @@ async function writeBuildingsFile(data) {
 // ---------------------------------------------
 async function getBuildings(req, res) {
     try {
-        const userId = req.session?.userId || "guest";
+        const userId = req.session?.userId || req.query?.userId || "guest";
+        const query = (userId && userId !== "guest")
+            ? { $or: [{ userId }, { userId: "guest" }] }
+            : { userId: "guest" };
 
         if (getDbStatus()) {
-            const buildings = await Building.find({ userId });
-            return res.json({ success: true, buildings, storage: "MongoDB" });
+            const buildings = await Building.find(query);
+            return res.json({ success: true, buildings, storage: "MongoDB Atlas" });
         } else {
             const all = await readBuildingsFile();
-            const userBuildings = all.filter(b => b.userId === userId);
-            return res.json({ success: true, buildings: userBuildings, storage: "JSON File" });
+            const userBuildings = all.filter(b => b.userId === userId || b.userId === "guest");
+            return res.json({ success: true, buildings: userBuildings, storage: "JSON File Fallback" });
         }
     } catch (error) {
         console.error("Get buildings error:", error);
@@ -49,7 +52,7 @@ async function getBuildings(req, res) {
 // ---------------------------------------------
 async function addBuilding(req, res) {
     try {
-        const userId = req.session?.userId || "guest";
+        const userId = req.session?.userId || req.body?.userId || "guest";
         const { buildingId, assetId, assetName, modelPath, scale, position, rotation } = req.body;
 
         if (!buildingId || !modelPath) {
@@ -69,15 +72,15 @@ async function addBuilding(req, res) {
 
         if (getDbStatus()) {
             const saved = await Building.findOneAndUpdate(
-                { buildingId, userId },
+                { buildingId },
                 buildingData,
-                { upsert: true, new: true, setDefaultsOnInsert: true }
+                { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
             );
             console.log(`[MongoDB] Building saved: ${buildingId} (${assetName})`);
-            return res.status(201).json({ success: true, message: "Building saved to MongoDB!", building: saved });
+            return res.status(201).json({ success: true, message: "Building saved to MongoDB Atlas!", storage: "MongoDB Atlas", building: saved });
         } else {
             const all = await readBuildingsFile();
-            const idx = all.findIndex(b => b.buildingId === buildingId && b.userId === userId);
+            const idx = all.findIndex(b => b.buildingId === buildingId);
             if (idx >= 0) {
                 all[idx] = buildingData;
             } else {
@@ -85,7 +88,7 @@ async function addBuilding(req, res) {
             }
             await writeBuildingsFile(all);
             console.log(`[JSON File] Building saved: ${buildingId} (${assetName})`);
-            return res.status(201).json({ success: true, message: "Building saved to JSON file!", building: buildingData });
+            return res.status(201).json({ success: true, message: "Building saved to JSON file!", storage: "JSON File Fallback", building: buildingData });
         }
     } catch (error) {
         console.error("Save building error:", error);
@@ -98,7 +101,6 @@ async function addBuilding(req, res) {
 // ---------------------------------------------
 async function deleteBuilding(req, res) {
     try {
-        const userId = req.session?.userId || "guest";
         const { buildingId } = req.params;
 
         if (!buildingId) {
@@ -106,15 +108,15 @@ async function deleteBuilding(req, res) {
         }
 
         if (getDbStatus()) {
-            const deleted = await Building.findOneAndDelete({ buildingId, userId });
+            const deleted = await Building.findOneAndDelete({ buildingId });
             console.log(`[MongoDB] Building deleted: ${buildingId}`);
-            return res.json({ success: true, message: "Building deleted from MongoDB!", deleted });
+            return res.json({ success: true, message: "Building deleted from MongoDB Atlas!", storage: "MongoDB Atlas", deleted });
         } else {
             const all = await readBuildingsFile();
-            const filtered = all.filter(b => !(b.buildingId === buildingId && b.userId === userId));
+            const filtered = all.filter(b => b.buildingId !== buildingId);
             await writeBuildingsFile(filtered);
             console.log(`[JSON File] Building deleted: ${buildingId}`);
-            return res.json({ success: true, message: "Building deleted from JSON file!" });
+            return res.json({ success: true, message: "Building deleted from JSON file!", storage: "JSON File Fallback" });
         }
     } catch (error) {
         console.error("Delete building error:", error);

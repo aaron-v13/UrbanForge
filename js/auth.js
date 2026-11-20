@@ -415,8 +415,13 @@
     }
 
     async function checkSessionAndRender(header, cta) {
-        let user = null;
+        // 1. Immediately render cached user if available (no UI flash/delay)
+        const cachedUser = getUser();
+        if (cachedUser) {
+            renderProfile(header, cta, cachedUser);
+        }
 
+        let user = null;
         try {
             const endpoint = getApiBase() + "/api/auth/me";
             const response = await fetch(endpoint, {
@@ -426,21 +431,39 @@
             if (response.ok) {
                 const data = await response.json();
                 user = data.user || null;
+                if (user) {
+                    saveUser(user, true);
+                    renderProfile(header, cta, user);
+                    return;
+                }
+            } else if (response.status === 401 && !cachedUser) {
+                clearUser();
+                return;
             }
         } catch (error) {
-            // Server might not be running or unauthenticated
+            // Server offline or port mismatch — keep cachedUser if present
         }
 
-        if (!user) {
+        if (!user && !cachedUser) {
             clearUser();
-            return;
         }
-
-        saveUser(user, true);
-        renderProfile(header, cta, user);
     }
 
     function renderProfile(header, cta, user) {
+        // If profile menu already rendered, update data and exit (prevents duplicates)
+        const existingMenu = header.querySelector(".uf-menu");
+        if (existingMenu) {
+            const name = user.name || (user.email || "User").split("@")[0];
+            const email = user.email || "";
+            const initialEl = existingMenu.querySelector(".uf-initial");
+            const strongEl = existingMenu.querySelector(".uf-who strong");
+            const spanEl = existingMenu.querySelector(".uf-who span");
+            if (initialEl) initialEl.textContent = name.charAt(0).toUpperCase();
+            if (strongEl) strongEl.textContent = name;
+            if (spanEl) spanEl.textContent = email;
+            return;
+        }
+
         const name = user.name || (user.email || "User").split("@")[0];
         const email = user.email || "";
         const isPagesDir = window.location.pathname.includes("/pages/");

@@ -7,6 +7,7 @@ echo ===================================================
 
 set "PATH=D:\aalto faltu\EE;%PATH%"
 
+start "" http://localhost:3000
 node server.js
 if %errorlevel% neq 0 (
     echo.
